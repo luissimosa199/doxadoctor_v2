@@ -2,6 +2,8 @@
 # Ignora la carpeta node_modules
 node_modules
 
+.next
+
 # Ignora todos los archivos de texto
 *.txt
 
