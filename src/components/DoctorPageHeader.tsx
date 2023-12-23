@@ -44,7 +44,7 @@ const DoctorPageHeader: FunctionComponent<DoctorPageHeaderProps> = ({
 
   return (
     <div className="pb-2 md:p-4 flex flex-col items-end bg-white md:flex-row">
-      <div className="relative mx-auto md:mx-0 w-full">
+      <div className="relative mx-auto md:mx-0">
         <div className="w-full md:w-96 h-[400px] md:h-96 bg-gray-300 mb-2 overflow-hidden z-0 relative">
           <CldImage
             src={currentPhoto || noProfileImage}
