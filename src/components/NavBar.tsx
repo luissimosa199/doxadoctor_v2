@@ -1,16 +1,9 @@
-import { signOut, useSession } from "next-auth/react";
-import ProfilePicture from "./ProfilePicture";
-import { useRouter } from "next/router";
 import useOnlineLogger from "@/hooks/useOnlineLogger";
 import Image from "next/image";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 
 const Navbar = () => {
-  const { data: session } = useSession();
-  const router = useRouter();
-  const isUsersPage = router.asPath === "/usuarios";
-
   useOnlineLogger();
 
   return (

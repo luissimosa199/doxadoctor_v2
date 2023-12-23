@@ -1,7 +1,9 @@
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 
 const DesktopNav = () => {
+  const { status } = useSession();
   return (
     <>
       <nav className="ml-4 w-full hidden md:block">
@@ -18,9 +20,12 @@ const DesktopNav = () => {
         </ul>
       </nav>
       <div>
-        <button className="hidden md:block px-4 py-2 border-2 border-white rounded-md text-white uppercase font-semibold">
-          Ingresar
-        </button>
+        <Link
+          href={status === "authenticated" ? "/perfil" : "/login"}
+          className="hidden md:block px-4 py-2 border-2 border-white rounded-md text-white uppercase font-semibold"
+        >
+          {status === "authenticated" ? "Perfil" : "Ingresar"}
+        </Link>
       </div>
     </>
   );
