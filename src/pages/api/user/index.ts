@@ -16,7 +16,7 @@ export default async function handler(
     if (req.method === "GET") {
       const { name, tags, username } = req.query;
 
-      let query: any = {};
+      let query: any = { role: "DOCTOR" };
 
       if (session && session.user && session.user.email) {
         query.email = { $ne: session.user.email };
@@ -36,7 +36,7 @@ export default async function handler(
       }
 
       const users = await UserModel.find(query)
-        .select("email image name tags slug online")
+        .select("email image name tags slug online type")
         .sort({ createdAt: -1 });
 
       if (!users || users.length === 0) {

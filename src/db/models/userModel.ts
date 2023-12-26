@@ -57,6 +57,9 @@ export class User {
   @prop({ default: "USER" })
   role?: string;
 
+  @prop()
+  type?: string;
+
   static async hashPassword(password: string) {
     return await bcrypt.hash(password, 10);
   }

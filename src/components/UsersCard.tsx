@@ -15,6 +15,7 @@ interface UserInterface {
     image: string;
     _id: string;
     slug: string;
+    type: string;
   };
   favoritesLoading: boolean;
   isFavorites: boolean;
@@ -45,7 +46,7 @@ const UsersCard: FunctionComponent<UserInterface> = ({
             <div className="w-full h-full bg-gray-200"></div>
             <div className="flex items-center gap-2 absolute bottom-2 right-2">
               <p className="text-xs text-center leading-none bg-blue-300 px-2 py-1 rounded-md font-semibold">
-                especilidad
+                {user.type}
               </p>
             </div>
           </div>

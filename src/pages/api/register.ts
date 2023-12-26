@@ -11,20 +11,15 @@ export default async function handler(
     return res.status(405).end(); // Method Not Allowed
   }
 
-  const { name, email, password, user_agent_id } = req.body;
+  const { name, email, password, user_agent_id, isDoctor, type } = req.body;
 
-  console.log(user_agent_id);
-
-  // Input validation (you may want to add more comprehensive checks)
   if (!name || !email || !password) {
     return res.status(400).json({ error: "Campos requeridos incompletos." });
   }
 
-  // Connect to the database using dbConnect
   await dbConnect();
 
   try {
-    // Check if the user already exists
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
       return res
@@ -32,7 +27,6 @@ export default async function handler(
         .json({ error: "Usuario con el mismo mail ya existe" });
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     let slug = name.toLowerCase().replaceAll(" ", "-");
@@ -46,13 +40,14 @@ export default async function handler(
       counter++;
     }
 
-    // Create the user
     const user = new UserModel({
       name,
       email,
       user_agent_id,
       password: hashedPassword,
       slug,
+      type,
+      role: isDoctor === "true" ? "DOCTOR" : "USER",
     });
     await user.save();
 
