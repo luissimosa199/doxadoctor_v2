@@ -60,6 +60,15 @@ export class User {
   @prop()
   type?: string;
 
+  @prop()
+  address?: string;
+
+  @prop()
+  hours?: string;
+
+  @prop()
+  phone?: string;
+
   static async hashPassword(password: string) {
     return await bcrypt.hash(password, 10);
   }

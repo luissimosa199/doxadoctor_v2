@@ -30,9 +30,9 @@ const UserPage: FunctionComponent<UserPageProps> = ({ userData }) => {
       <DoctorPageBody
         username={userData?.email}
         slug={userData?.slug || ""}
-        phone={""}
-        hours={""}
-        address={""}
+        phone={userData?.phone || ""}
+        hours={userData?.hours || ""}
+        address={userData?.address || ""}
       />
     </main>
   );
@@ -49,7 +49,7 @@ export const getServerSideProps = async (
     const { slug } = context.query;
 
     const user = await UserModel.findOne({ slug })
-      .select("name email image photos bio slug tags type")
+      .select("name email image photos bio slug tags type address phone hours")
       .lean();
 
     if (user) {
@@ -58,6 +58,9 @@ export const getServerSideProps = async (
         type: user.type,
         email: user.email,
         image: user.image || "",
+        address: user.address || "",
+        hours: user.hours || "",
+        phone: user.phone || "",
         photos: user.photos || [],
         bio: user.bio || "",
         slug: user.slug || "",

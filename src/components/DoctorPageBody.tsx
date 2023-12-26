@@ -31,6 +31,7 @@ const DoctorPageBody = ({
       </div>
 
       <CurrentTabContent
+        username={username}
         slug={slug}
         visiblePhone={visiblePhone}
         currentTab={currentTab}

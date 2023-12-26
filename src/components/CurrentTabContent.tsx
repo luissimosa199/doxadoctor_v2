@@ -8,7 +8,8 @@ const CurrentTabContent = ({
   phone,
   hours,
   address,
-  slug
+  slug,
+  username,
 }: {
   currentTab: string;
   visiblePhone?: boolean;
@@ -16,11 +17,13 @@ const CurrentTabContent = ({
   hours: string;
   address: string;
   slug: string;
+  username: string;
 }) => {
   return (
     <div>
       <div className={`${currentTab !== "informacion" ? "hidden" : "block"}`}>
         <DoctorPageInfoTab
+          username={username}
           visiblePhone={visiblePhone}
           phone={phone}
           hours={hours}

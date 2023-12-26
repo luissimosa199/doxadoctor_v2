@@ -36,7 +36,7 @@ export default async function handler(
       }
 
       const users = await UserModel.find(query)
-        .select("email image name tags slug online type")
+        .select("email image name tags slug online type address phone hours")
         .sort({ createdAt: -1 });
 
       if (!users || users.length === 0) {

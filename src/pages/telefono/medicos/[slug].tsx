@@ -31,9 +31,9 @@ const UserPage: FunctionComponent<UserPageProps> = ({ userData }) => {
         username={userData?.email}
         visiblePhone={true}
         slug={userData.slug || ""}
-        phone={""}
-        hours={""}
-        address={""}
+        phone={userData.phone || ""}
+        hours={userData.hours || ""}
+        address={userData.address || ""}
       />
     </main>
   );
@@ -50,7 +50,7 @@ export const getServerSideProps = async (
     const { slug } = context.query;
 
     const user = await UserModel.findOne({ slug })
-      .select("name email image photos bio slug tags type")
+      .select("name email image photos bio slug tags type address phone hours")
       .lean();
 
     if (user) {
@@ -58,6 +58,9 @@ export const getServerSideProps = async (
         name: user.name,
         type: user.type,
         email: user.email,
+        address: user.address || "",
+        hours: user.hours || "",
+        phone: user.phone || "",
         image: user.image || "",
         photos: user.photos || [],
         bio: user.bio || "",

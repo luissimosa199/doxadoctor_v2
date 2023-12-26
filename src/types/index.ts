@@ -38,6 +38,9 @@ export interface UserInterface {
   tags: string[];
   slug: string;
   online?: boolean;
+  address?: string;
+  hours?: string;
+  phone?: string;
 }
 
 //
@@ -70,6 +73,9 @@ export interface User {
   slug?: string;
   tags?: string[];
   type?: string;
+  address?: string;
+  hours?: string;
+  phone?: string;
 }
 
 // SOCKETS
@@ -129,3 +135,9 @@ export type ChatMessage = {
 };
 
 export type Tabs = "opiniones" | "informacion";
+
+export interface DoctorInfo {
+  address?: string;
+  hours?: string;
+  phone?: string;
+}

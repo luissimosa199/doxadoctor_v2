@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
+import { useQuery } from "@tanstack/react-query";
 
 interface ProfilePageProps {
   userData: User | null;
@@ -17,6 +18,24 @@ interface ProfilePageProps {
 const ProfilePage: FunctionComponent<ProfilePageProps> = ({ userData }) => {
   const { data: session } = useSession();
   const router = useRouter();
+
+  const { data: userInfo, isLoading } = useQuery(
+    ["userInfo", session?.user?.email],
+    async () => {
+      const response = await fetch(
+        `api/user/info?username=${session?.user?.email}`
+      );
+
+      return response.json();
+    },
+    {
+      initialData: {
+        address: userData?.address,
+        hours: userData?.hours,
+        phone: userData?.phone,
+      },
+    }
+  );
 
   useEffect(() => {
     if (!session || !session.user) {
@@ -39,9 +58,9 @@ const ProfilePage: FunctionComponent<ProfilePageProps> = ({ userData }) => {
         username={userData?.email}
         visiblePhone={true}
         slug={userData.slug || ""}
-        phone={""}
-        hours={""}
-        address={""}
+        phone={userInfo.phone || ""}
+        hours={userInfo.hours || ""}
+        address={userInfo.address || ""}
       />
     </main>
   );
@@ -71,7 +90,7 @@ export const getServerSideProps = async (
       };
     }
     const user = await UserModel.findOne({ email: username })
-      .select("name email image photos bio slug tags type")
+      .select("name email image photos bio slug tags type address hours phone")
       .lean();
 
     if (user) {
@@ -84,6 +103,9 @@ export const getServerSideProps = async (
         bio: user.bio || "",
         slug: user.slug || "",
         tags: user.tags || [],
+        address: user.address || "",
+        hours: user.hours || "",
+        phone: user.phone || "",
       };
       return {
         props: {

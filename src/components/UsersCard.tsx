@@ -16,6 +16,7 @@ interface UserInterface {
     _id: string;
     slug: string;
     type: string;
+    address?: string;
   };
   favoritesLoading: boolean;
   isFavorites: boolean;
@@ -64,7 +65,7 @@ const UsersCard: FunctionComponent<UserInterface> = ({
             </div>
             <div className="flex items-center gap-1">
               <LocationSvg />
-              <span className="text-sm text-gray-600">direccion</span>
+              <span className="text-sm text-gray-600">{user.address}</span>
             </div>
           </div>
         </Link>
