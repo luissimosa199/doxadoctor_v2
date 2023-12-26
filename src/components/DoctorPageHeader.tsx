@@ -9,13 +9,13 @@ import { useQuery } from "@tanstack/react-query";
 interface DoctorPageHeaderProps {
   photo: string;
   name: string;
-  type: string[];
+  type: string;
 }
 
 const DoctorPageHeader: FunctionComponent<DoctorPageHeaderProps> = ({
-  photo,
   name,
   type,
+  photo,
 }) => {
   const [currentPhoto, setCurrentPhoto] = useState<string | null>(null);
   const { data: session } = useSession();
@@ -31,6 +31,8 @@ const DoctorPageHeader: FunctionComponent<DoctorPageHeaderProps> = ({
     return data;
   };
 
+  const ownUser = session?.user?.name === name;
+
   const { data } = useQuery(
     [session?.user?.email, "profilePicture"],
     fetchProfilePicture
@@ -38,9 +40,9 @@ const DoctorPageHeader: FunctionComponent<DoctorPageHeaderProps> = ({
 
   useEffect(() => {
     if (data && data.image) {
-      setCurrentPhoto(data.image);
+      setCurrentPhoto(ownUser ? data.image : photo);
     }
-  }, [session, data]);
+  }, [session, data, ownUser, photo]);
 
   return (
     <div className="pb-2 md:p-4 flex flex-col items-end bg-white md:flex-row">
@@ -58,36 +60,34 @@ const DoctorPageHeader: FunctionComponent<DoctorPageHeaderProps> = ({
             isUpdating ? "animate-pulse" : ""
           }`}
         ></div>
-        <div className="absolute bottom-0 right-0 z-20 w-12 h-12 bg-white rounded-full">
-          <button className="flex items-center justify-center w-full h-full">
-            <label
-              htmlFor="profilephoto"
-              className="cursor-pointer"
-            >
-              <UploadCloudSvg />
-            </label>
-          </button>
-          <input
-            accept="image/png, image/jpeg, video/mp4"
-            className="absolute opacity-0 w-0 h-0"
-            type="file"
-            id="profilephoto"
-            onChange={updateAvatar}
-          />
-        </div>
+        {ownUser && (
+          <div className="absolute bottom-0 right-0 z-20 w-12 h-12 bg-white rounded-full">
+            <button className="flex items-center justify-center w-full h-full">
+              <label
+                htmlFor="profilephoto"
+                className="cursor-pointer"
+              >
+                <UploadCloudSvg />
+              </label>
+            </button>
+            <input
+              accept="image/png, image/jpeg, video/mp4"
+              className="absolute opacity-0 w-0 h-0"
+              type="file"
+              id="profilephoto"
+              onChange={updateAvatar}
+            />
+          </div>
+        )}
         <div className="absolute bottom-4 left-4 z-20">
           <h1 className="text-5xl font-semibold text-white mb-2">{name}</h1>
           <ul className="flex gap-2 text-sm justify-center md:justify-start ">
-            {type.map((e) => {
-              return (
-                <li
-                  key={`tag_${e}`}
-                  className=" px-2 py-1 font-semibold bg-blue-200 rounded-md"
-                >
-                  {e}
-                </li>
-              );
-            })}
+            <li
+              key={`tag_${type}`}
+              className=" px-2 py-1 font-semibold bg-blue-200 rounded-md"
+            >
+              {type}
+            </li>
           </ul>
         </div>
       </div>

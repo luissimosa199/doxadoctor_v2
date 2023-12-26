@@ -68,6 +68,7 @@ export interface User {
   bio: string;
   slug?: string;
   tags?: string[];
+  type?: string;
 }
 
 // SOCKETS
