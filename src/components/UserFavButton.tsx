@@ -64,7 +64,7 @@ const UserFavButton = ({
         <FontAwesomeIcon
           size={size}
           icon={isFavorite ? faStar : farStar}
-          className="w-10 h-10 lg:w-5 lg:h-5"
+          className="w-5 h-5 lg:w-5 lg:h-5"
         />
       </button>
       {showSpan && (

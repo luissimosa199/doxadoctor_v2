@@ -5,10 +5,6 @@ import { useEffect, useMemo, useState } from "react";
 import UserFilterContainer from "@/components/UserFilterContainer";
 import UserListSkeleton from "@/components/UserListSkeleton";
 import { UserInterface } from "@/types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/router";
-import AsideMenu from "@/components/AsideMenu";
 
 const Usuarios = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -16,15 +12,12 @@ const Usuarios = () => {
   const [filterByFavorites, setFilterByFavorites] = useState<boolean>(false);
   const [filterOnline, setFilterOnline] = useState(false);
 
-  const router = useRouter();
   const { data: session } = useSession();
 
   const fetchUsers = async () => {
-    // Convert the selectedTags array to query parameters
     const tagsQuery = selectedTags.map((tag) => `tags=${tag}`).join("&");
     const nameQuery = nameFilter ? `name=${nameFilter}` : "";
 
-    // Construct the URL with the query parameters
     const url = `/api/user?${tagsQuery}&${nameQuery}`;
 
     const response = await fetch(url, {
