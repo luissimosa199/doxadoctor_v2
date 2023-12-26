@@ -9,13 +9,13 @@ const DesktopNav = () => {
       <nav className="ml-4 w-full hidden md:block">
         <ul className="flex gap-4 items-start w-full font-semibold text-white">
           <li>
-            <Link href="#">Profesionales</Link>
+            <Link href="/medicos">Profesionales</Link>
           </li>
           <li>
             <Link href="#">Notas</Link>
           </li>
           <li>
-            <Link href="#">Agregar Profesional</Link>
+            <Link href="/register">Agregar Profesional</Link>
           </li>
         </ul>
       </nav>
