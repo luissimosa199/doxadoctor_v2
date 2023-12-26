@@ -33,7 +33,7 @@ const ProfilePage: FunctionComponent<ProfilePageProps> = ({ userData }) => {
       <DoctorPageHeader
         photo={userData?.image}
         name={userData?.name}
-        type={userData?.tags || []}
+        type={userData?.type || ""}
       />
       <DoctorPageBody
         username={userData?.email}
@@ -71,13 +71,14 @@ export const getServerSideProps = async (
       };
     }
     const user = await UserModel.findOne({ email: username })
-      .select("name email image photos bio slug tags")
+      .select("name email image photos bio slug tags type")
       .lean();
 
     if (user) {
       const userData = {
         name: user.name,
         email: user.email,
+        type: user.type || "",
         image: user.image || "",
         photos: user.photos || [],
         bio: user.bio || "",

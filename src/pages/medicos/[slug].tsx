@@ -63,6 +63,7 @@ export const getServerSideProps = async (
         slug: user.slug || "",
         tags: user.tags || [],
       };
+
       return {
         props: {
           userData,
