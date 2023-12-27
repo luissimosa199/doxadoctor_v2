@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import UsersCard from "@/components/UsersCard";
 import { useEffect, useMemo, useState } from "react";
@@ -11,8 +10,6 @@ const Usuarios = () => {
   const [nameFilter, setNameFilter] = useState("");
   const [filterByFavorites, setFilterByFavorites] = useState<boolean>(false);
   const [filterOnline, setFilterOnline] = useState(false);
-
-  const { data: session } = useSession();
 
   const fetchUsers = async () => {
     const tagsQuery = selectedTags.map((tag) => `tags=${tag}`).join("&");
@@ -44,9 +41,6 @@ const Usuarios = () => {
   }: { data: string[] | undefined; isLoading: boolean } = useQuery(
     ["favorites", "all"],
     async () => {
-      if (!session) {
-        return [];
-      }
       const response = await fetch(`/api/user/favorites`);
       if (response.ok) {
         const data = await response.json();
