@@ -55,7 +55,7 @@ const UserFavButton = ({
       <button
         className={`${
           isLoading
-            ? "text-white animate-pulse"
+            ? "text-black animate-pulse"
             : isFavorite
             ? "text-yellow-500 sm:hover:text-white"
             : "text-black active:text-yellow-500 sm:hover:text-yellow-500"
