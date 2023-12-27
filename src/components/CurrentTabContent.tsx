@@ -1,6 +1,7 @@
 import React from "react";
 import DoctorPageOpinionsTab from "./DoctorPageOpinionsTab";
 import DoctorPageInfoTab from "./DoctorPageInfoTab";
+import Ad from "./Ad";
 
 const CurrentTabContent = ({
   currentTab,
@@ -30,7 +31,9 @@ const CurrentTabContent = ({
           address={address}
           slug={slug}
         />
-        <div className="w-ful h-32 bg-gray-200 mx-4 mb-4"></div>
+        <div className="h-32 bg-gray-200 mx-4 mb-4">
+          <Ad />
+        </div>
       </div>
       <div className={`${currentTab !== "opiniones" ? "hidden" : "block"}`}>
         <DoctorPageOpinionsTab />

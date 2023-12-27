@@ -5,13 +5,14 @@ import FooterLink from "./FooterLink";
 import EnvelopeSvg from "./icons/EnvelopeSvg";
 import MessengerSvg from "./icons/MessengerSvg";
 import WhatsappSvg from "./icons/WhatsappSvg";
+import Ad from "./Ad";
 // import WhatsAppBtn from "./WhatsAppBtn";
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-500 pt-8 pb-32 px-4 md:px-32 flex flex-col text-white">
+    <footer className="bg-blue-500 pt-8 pb-8 px-4 md:px-32 flex flex-col text-white">
       <div className="flex flex-col gap-2 md:gap-0 md:flex-row justify-between mb-4">
-        <div>
+        {/* <div>
           <h3 className="text-2xl font-semibold mb-6">Especialidades</h3>
           <ul className="flex flex-col gap-2">
             <li>
@@ -50,25 +51,25 @@ const Footer = () => {
               <FooterLink href="#">Neonatología</FooterLink>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div>
           <h3 className="text-2xl font-semibold mb-4">Nosotros</h3>
           <ul className="flex flex-col gap-2">
-            <li>
+            {/* <li>
               <FooterLink href="#">Contacto</FooterLink>
+            </li> */}
+            <li>
+              <FooterLink href="https://notas.doxadoctor.com/">Blog</FooterLink>
             </li>
             <li>
-              <FooterLink href="#">Blog</FooterLink>
+              <FooterLink href="login">Agregar médico</FooterLink>
             </li>
-            <li>
-              <FooterLink href="#">Agregar médico</FooterLink>
-            </li>
-            <li>
+            {/* <li>
               <FooterLink href="#">Ranking</FooterLink>
             </li>
             <li>
               <FooterLink href="#">Términos y condiciones</FooterLink>
-            </li>
+            </li> */}
           </ul>
         </div>
         <div>
@@ -132,7 +133,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-36 mt-4 bg-gray-300"></div>
+      <div className="w-full h-36 mt-4 bg-gray-300">
+        <Ad />
+      </div>
     </footer>
   );
 };

@@ -20,13 +20,13 @@ const MobileNav = () => {
         <div className="absolute w-full left-0 top-16 bg-white shadow-md z-50">
           <ul className="flex flex-col items-center">
             <li className="border-b w-1/2 text-center py-2">
-              <Link href="#">Profesionales</Link>
+              <Link href="/medicos">Profesionales</Link>
             </li>
             <li className="border-b w-1/2 text-center py-2">
-              <Link href="#">Notas</Link>
+              <Link href="https://notas.doxadoctor.com/">Notas</Link>
             </li>
             <li className="border-b w-1/2 text-center py-2">
-              <Link href="#">Agregar Profesional</Link>
+              <Link href="/login">Agregar Profesional</Link>
             </li>
             <li className="border-b w-1/2 text-center py-2">
               <Link href={status === "authenticated" ? "/perfil" : "/login"}>

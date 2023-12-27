@@ -12,7 +12,7 @@ const DesktopNav = () => {
             <Link href="/medicos">Profesionales</Link>
           </li>
           <li>
-            <Link href="#">Notas</Link>
+            <Link href="https://notas.doxadoctor.com/">Notas</Link>
           </li>
           <li>
             <Link href="/register">Agregar Profesional</Link>

@@ -1,11 +1,10 @@
-import Ad from "@/components/Ad";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="es-419">
       <Head>
-        {/* <script
+        <script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=G-3R9LM83VDP`}
         ></script>
@@ -24,7 +23,7 @@ export default function Document() {
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2371684572387469"
           crossOrigin="anonymous"
-        ></script> */}
+        ></script>
       </Head>
       <body className="bg-zinc-50">
         <Main />

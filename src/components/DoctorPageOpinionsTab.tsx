@@ -1,5 +1,6 @@
 import React from "react";
 import DoctorPageOpinionCard from "./DoctorPageOpinionCard";
+import Ad from "./Ad";
 
 const DoctorPageOpinionsTab = () => {
   return (
@@ -10,7 +11,9 @@ const DoctorPageOpinionsTab = () => {
             <div
               key={`comment_${idx}`}
               className="h-48 w-full bg-gray-300 mb-8"
-            ></div>
+            >
+              <Ad />
+            </div>
           );
         }
 
