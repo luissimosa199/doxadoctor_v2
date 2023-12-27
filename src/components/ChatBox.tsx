@@ -53,7 +53,7 @@ const ChatBox = ({
             return (
               <div
                 key={i}
-                className="bg-white w-full"
+                className="w-full"
               >
                 <div className="flex items-center">
                   <strong className="text-blue-500 mr-2">{e.user}:</strong>

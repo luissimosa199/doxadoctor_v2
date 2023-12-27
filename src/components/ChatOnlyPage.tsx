@@ -43,8 +43,8 @@ const ChatOnlyPage = ({ channelName }: { channelName: string }) => {
   }, [channelName]);
 
   return (
-    <div className="flex flex-col justify-between h-full">
-      <div className="border-2 w-full p-2 rounded-md shadow-md bg-gray-100 flex flex-col gap-2 items-left">
+    <div className="flex flex-col justify-between h-full mb-6 px-2">
+      <div className="border-2 w-full p-2 rounded-md shadow-md bg-gray-100 flex flex-col gap-2 items-left mb-4">
         <div className="flex gap-2">
           <h3 className="text-lg font-semibold">Integrantes:</h3>
           <ul className="flex gap-2 items-center">

@@ -56,7 +56,7 @@ const VideoCallLobby = () => {
   };
 
   return (
-    <div className="bg-white w-96 mx-auto mt-10 min-h-screen">
+    <div className="bg-white w-96 mx-auto mt-10 my-48">
       <div className="p-4 rounded shadow-md">
         <div className="mb-4">
           <div className="flex gap-2 mb-1 items-center">

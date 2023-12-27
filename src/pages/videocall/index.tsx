@@ -48,7 +48,7 @@ const Videocall = () => {
   };
 
   return (
-    <div className="bg-white w-full max-w-md mx-auto mt-10 min-h-screen">
+    <div className="bg-white w-full max-w-md mx-auto my-48">
       <form
         className="p-8 rounded shadow-md"
         onSubmit={handleSubmit}
