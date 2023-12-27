@@ -1,6 +1,8 @@
 import React from "react";
 import ThumbsDownSvg from "./icons/ThumbsDownSvg";
 import ThumbsUpSvg from "./icons/ThumbsUpSvg";
+import FilledStarSvg from "./icons/FilledStarSvg";
+import StarSvg from "./icons/StarSvg";
 
 const DoctorPageOpinionCard = () => {
   return (
@@ -12,7 +14,12 @@ const DoctorPageOpinionCard = () => {
             <p className="font-semibold">Nombre</p>
             <p className="text-sm">19 de diciembre 2023</p>
           </div>
-          <div>xxxxx</div>
+          <div className="flex mb-2 gap-1 justify-center">
+            {[...Array(4)].map((_, idx) => {
+              return <FilledStarSvg key={`star_${idx}`} />;
+            })}
+            <StarSvg />
+          </div>
         </div>
 
         <p>
