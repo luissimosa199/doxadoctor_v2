@@ -1,5 +1,3 @@
-import { faMessage, faVideoCamera } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
@@ -38,9 +36,9 @@ const UserCardButtons = ({
           router.push(
             `${
               session?.user
-                ? `/chat/${
-                    (session?.user?.email as string).split("@")[0]
-                  }y${username}`
+                ? `/chat/${(session?.user?.email as string).split("@")[0]}y${
+                    username.split("@")[0]
+                  }`
                 : "/login"
             }`
           );
@@ -56,7 +54,11 @@ const UserCardButtons = ({
         onClick={(e) => {
           e.preventDefault();
           router.push(
-            `${session?.user ? `/videocall?name=${username}` : "/login"}`
+            `${
+              session?.user
+                ? `/videocall?name=${username.split("@")[0]}`
+                : "/login"
+            }`
           );
         }}
       >

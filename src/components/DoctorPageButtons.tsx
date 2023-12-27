@@ -50,9 +50,9 @@ const DoctorPageButtons = ({
           <Link
             href={`${
               session?.user
-                ? `/chat/${
-                    (session?.user?.email as string).split("@")[0]
-                  }y${username}`
+                ? `/chat/${(session?.user?.email as string).split("@")[0]}y${
+                    username.split("@")[0]
+                  }`
                 : "/login"
             }`}
             className="bg-blue-300 shadow-sm px-2 py-1 rounded-md flex items-center gap-1"
@@ -63,7 +63,11 @@ const DoctorPageButtons = ({
         </li>
         <li>
           <Link
-            href={`${session?.user ? `/videocall?name=${username}` : "/login"}`}
+            href={`${
+              session?.user
+                ? `/videocall?name=${username.split("@")[0]}`
+                : "/login"
+            }`}
             className="bg-blue-300 shadow-sm px-2 py-1 rounded-md flex items-center gap-1"
           >
             <VideoCamSvg />

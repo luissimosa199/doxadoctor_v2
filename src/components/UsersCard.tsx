@@ -28,10 +28,7 @@ const UsersCard: FunctionComponent<UserInterface> = ({
   isFavorites,
 }) => {
   return (
-    <li
-      key={user._id}
-      className="shadow-md bg-white"
-    >
+    <li className="shadow-md bg-white">
       <div className="flex flex-col items-center gap-y-2 w-full">
         <Link
           href={`/medicos/${user.slug}`}
