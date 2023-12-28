@@ -10,7 +10,7 @@ const DoctorPageOpinionsTab = () => {
           return (
             <div
               key={`comment_${idx}`}
-              className="h-48 w-full bg-gray-300 mb-8"
+              className="h-48 w-full mb-8 overflow-hidden"
             >
               <Ad />
             </div>

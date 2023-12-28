@@ -39,7 +39,11 @@ const DoctorPageHeader: FunctionComponent<DoctorPageHeaderProps> = ({
   );
 
   useEffect(() => {
-    setCurrentPhoto(ownUser ? data.image : photo);
+    if (ownUser && data) {
+      setCurrentPhoto(data.image);
+    } else {
+      setCurrentPhoto(photo);
+    }
   }, [session, data, ownUser, photo]);
 
   return (

@@ -53,7 +53,6 @@ const Footer = () => {
           </ul>
         </div> */}
         <div>
-          <h3 className="text-2xl font-semibold mb-4">Nosotros</h3>
           <ul className="flex flex-col gap-2">
             {/* <li>
               <FooterLink href="#">Contacto</FooterLink>
@@ -73,7 +72,6 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-          <h3 className="text-2xl font-semibold mb-4">Contacto</h3>
           <ul className="flex flex-col gap-2">
             <li>
               <Link
@@ -133,7 +131,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-36 mt-4 bg-gray-300">
+      <div className="w-full h-36 mt-4 overflow-hidden">
         <Ad />
       </div>
     </footer>

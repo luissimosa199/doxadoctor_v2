@@ -31,7 +31,7 @@ const CurrentTabContent = ({
           address={address}
           slug={slug}
         />
-        <div className="h-32 bg-gray-200 mx-4 mb-4">
+        <div className="h-32 mx-4 mb-4 overflow-hidden">
           <Ad />
         </div>
       </div>
