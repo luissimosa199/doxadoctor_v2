@@ -131,7 +131,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-36 mt-4 overflow-hidden">
+      <div className="w-full mt-4 overflow-hidden">
         <Ad />
       </div>
     </footer>
