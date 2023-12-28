@@ -75,7 +75,7 @@ const Footer = () => {
           <ul className="flex flex-col gap-2">
             <li>
               <Link
-                href="#"
+                href="https://doxa-web.vercel.app/#contact"
                 className="flex items-center gap-1"
               >
                 <EnvelopeSvg />
@@ -84,16 +84,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                href="#"
-                className="flex items-center gap-1"
-              >
-                <MessengerSvg />
-                <span>Chatear</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#"
+                href="https://api.whatsapp.com/send/?text=https://pediatra.doxadoctor.com/&type=custom_url&app_absent=0"
                 className="flex items-center gap-1"
               >
                 <WhatsappSvg />
