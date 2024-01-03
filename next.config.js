@@ -27,6 +27,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "assets.website-files.com",
       },
+      {
+        protocol: "https",
+        hostname: "s3.sa-east-1.amazonaws.com",
+      },
     ],
   },
 };

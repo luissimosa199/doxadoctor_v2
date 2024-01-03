@@ -1,12 +1,12 @@
 import Link from "next/link";
 import React, { FunctionComponent } from "react";
-import { CldImage } from "next-cloudinary";
 import { noProfileImage } from "@/utils/noProfileImage";
 import UserCardButtons from "./UserCardButtons";
 import UsersOnlineIndicator from "./UsersOnlineIndicator";
 import FilledStarSvg from "./icons/FilledStarSvg";
 import StarSvg from "./icons/StarSvg";
 import LocationSvg from "./icons/LocationSvg";
+import Image from "next/image";
 
 interface UserInterface {
   user: {
@@ -28,16 +28,22 @@ const UsersCard: FunctionComponent<UserInterface> = ({
   isFavorites,
 }) => {
   return (
-    <li className="shadow-md bg-white">
+    <li className="shadow-md bg-white md:w-[280px]">
       <div className="flex flex-col items-center gap-y-2 w-full">
         <Link
           href={`/medicos/${user.slug}`}
           className=""
         >
           <div className="h-96 md:h-[280px] w-screen sm:max-w-sm md:w-[280px] overflow-hidden relative">
-            <CldImage
+            <Image
               alt={`foto de ${user.name}`}
-              src={user.image || noProfileImage}
+              src={
+                user.image
+                  ? user.image.startsWith("http")
+                    ? user.image
+                    : `https://${user.image}`
+                  : noProfileImage
+              }
               fill
               className="absolute object-cover"
             />

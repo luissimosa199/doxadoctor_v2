@@ -30,7 +30,7 @@ const DoctorPageInfoBody = ({
       </div>
       <div className="flex gap-2 mb-2">
         <ClockSvg />
-        {hours ? (
+        {hours && hours !== "string" ? (
           <p>{hours}</p>
         ) : (
           <span className="text-sm text-gray-500 italic">
