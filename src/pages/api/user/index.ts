@@ -14,7 +14,10 @@ export default async function handler(
 
   try {
     if (req.method === "GET") {
-      const { name, tags, username } = req.query;
+      const { name, tags, username, page = 1, limit = 10 } = req.query;
+
+      const currentPage = parseInt(page as string) || 1;
+      const pageSize = parseInt(limit as string) || 10;
 
       let query: any = { role: "DOCTOR" };
 
@@ -37,7 +40,9 @@ export default async function handler(
 
       const users = await UserModel.find(query)
         .select("email image name tags slug online type address phone hours")
-        .sort({ createdAt: -1 });
+        .sort({ createdAt: -1 })
+        .limit(pageSize)
+        .skip((currentPage - 1) * pageSize);
 
       if (!users || users.length === 0) {
         return res.status(200).json([]);
