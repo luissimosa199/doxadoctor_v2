@@ -1,8 +1,8 @@
 import dbConnect from "@/db/dbConnect";
-import { TimeLineModel } from "@/db/models";
+import { UserModel } from "@/db/models/userModel";
 import { GetServerSideProps } from "next/types";
 
-function generateSiteMap(urls: string[], tags: string[]): string {
+function generateSiteMap(urls: string[]): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
        <!--We manually set the two URLs we know already-->
@@ -10,21 +10,11 @@ function generateSiteMap(urls: string[], tags: string[]): string {
          <loc>${process.env.NEXT_PUBLIC_BASE_URL}</loc>
        </url>
 
-       ${tags
-         .map((tag) => {
-           return `<url>
-                <loc>${
-                  process.env.NEXT_PUBLIC_BASE_URL
-                }/nota/search?tags=${encodeURIComponent(tag)}</loc>
-            </url>`;
-         })
-         .join("")}
-
        ${urls
          .map((e: string) => {
            return `
          <url>
-             <loc>${`${process.env.NEXT_PUBLIC_BASE_URL}/nota/${e}`}</loc>
+             <loc>${`${process.env.NEXT_PUBLIC_BASE_URL}/medicos/${e}`}</loc>
          </url>`;
          })
          .join("")}
@@ -39,16 +29,12 @@ function SiteMap() {
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   await dbConnect();
 
-  // urlSlugs
-  const urlObjects = await TimeLineModel.find().select("urlSlug").lean();
-  const urls = urlObjects
-    .map((obj) => obj.urlSlug)
-    .filter((e) => e !== undefined);
+  const doctors = await UserModel.find({ role: "DOCTOR" })
+    .select("slug")
+    .lean();
+  const slugs = doctors.map((obj) => obj.slug).filter((e) => e !== undefined);
 
-  // categories
-  const tags = await TimeLineModel.distinct("tags");
-
-  const sitemap = generateSiteMap(urls, tags);
+  const sitemap = generateSiteMap(slugs);
 
   res.setHeader("Content-Type", "text/xml");
   res.write(sitemap);
