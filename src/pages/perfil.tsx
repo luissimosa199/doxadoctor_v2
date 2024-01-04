@@ -55,6 +55,8 @@ const ProfilePage: FunctionComponent<ProfilePageProps> = ({ userData }) => {
         type={userData?.type || ""}
       />
       <DoctorPageBody
+        doctorName={userData?.name as string}
+        doctorId={userData?._id as string}
         username={userData?.email}
         visiblePhone={true}
         slug={userData.slug || ""}
@@ -95,6 +97,7 @@ export const getServerSideProps = async (
 
     if (user) {
       const userData = {
+        _id: user._id,
         name: user.name,
         email: user.email,
         type: user.type || "",
