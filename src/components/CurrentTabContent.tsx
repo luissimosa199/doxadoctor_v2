@@ -2,6 +2,7 @@ import React from "react";
 import DoctorPageOpinionsTab from "./DoctorPageOpinionsTab";
 import DoctorPageInfoTab from "./DoctorPageInfoTab";
 import Ad from "./Ad";
+import DoctorPageOpinionsInput from "./DoctorPageOpinionsInput";
 
 const CurrentTabContent = ({
   currentTab,
@@ -11,6 +12,8 @@ const CurrentTabContent = ({
   address,
   slug,
   username,
+  doctorName,
+  doctorId,
 }: {
   currentTab: string;
   visiblePhone?: boolean;
@@ -19,6 +22,8 @@ const CurrentTabContent = ({
   address: string;
   slug: string;
   username: string;
+  doctorName: string;
+  doctorId: string;
 }) => {
   return (
     <div>
@@ -37,6 +42,10 @@ const CurrentTabContent = ({
       </div>
       <div className={`${currentTab !== "opiniones" ? "hidden" : "block"}`}>
         <DoctorPageOpinionsTab />
+        <DoctorPageOpinionsInput
+          doctorName={doctorName}
+          doctorId={doctorId}
+        />
       </div>
     </div>
   );

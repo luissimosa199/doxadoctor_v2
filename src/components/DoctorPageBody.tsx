@@ -10,13 +10,17 @@ const DoctorPageBody = ({
   address,
   slug,
   username,
+  doctorName,
+  doctorId,
 }: {
+  doctorName: string;
   visiblePhone?: boolean;
   phone: string;
   hours: string;
   address: string;
   slug: string;
   username: string;
+  doctorId: string;
 }) => {
   const [currentTab, setCurrentTab] = useState<Tabs>("informacion");
 
@@ -31,6 +35,8 @@ const DoctorPageBody = ({
       </div>
 
       <CurrentTabContent
+        doctorName={doctorName}
+        doctorId={doctorId}
         username={username}
         slug={slug}
         visiblePhone={visiblePhone}
