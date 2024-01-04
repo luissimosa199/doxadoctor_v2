@@ -125,8 +125,6 @@ const Usuarios = () => {
 
   if (error) return <p>Error</p>;
 
-  console.log(data);
-
   return (
     <div className={`bg-zinc-50 md:p-8`}>
       <div className="w-full mb-4 max-w-4xl mx-auto">
