@@ -36,10 +36,12 @@ const DoctorPageOpinionsTab = ({ doctorId }: { doctorId: string }) => {
           return (
             <DoctorPageOpinionCard
               key={`comment_${e._id}`}
+              _id={e._id}
               name={e.name}
               createdAt={e.createdAt}
               rank={e.rank}
               comment={e.comment}
+              files={e.files}
             />
           );
         })

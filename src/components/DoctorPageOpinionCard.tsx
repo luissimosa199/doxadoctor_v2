@@ -3,17 +3,22 @@ import ThumbsDownSvg from "./icons/ThumbsDownSvg";
 import ThumbsUpSvg from "./icons/ThumbsUpSvg";
 import OpinionCardRank from "./OpinionCardRank";
 import { formatOpinionDate } from "@/utils/formatOpinionDate";
+import Image from "next/image";
 
 const DoctorPageOpinionCard = ({
   name,
   createdAt,
   rank,
   comment,
+  files,
+  _id,
 }: {
   name: string;
   createdAt: string;
   rank: number;
   comment: string;
+  files: string[];
+  _id: string;
 }) => {
   return (
     <div className="shadow-md w-full flex gap-2 p-4 mb-8 max-w-3xl mx-auto">
@@ -26,8 +31,53 @@ const DoctorPageOpinionCard = ({
           </div>
           <OpinionCardRank rank={rank} />
         </div>
+        <div className="my-2">
+          <p className="mb-2">{comment}</p>
+          <div>
+            {files &&
+              files.map((file, idx) => {
+                const isVideo = file.includes("video");
+                const isImage = file.includes("image");
 
-        <p>{comment}</p>
+                if (isVideo) {
+                  return (
+                    <video
+                      key={`video_${_id}_${idx}`}
+                      src={file}
+                      controls
+                      className="w-full"
+                    />
+                  );
+                }
+
+                if (isImage) {
+                  return (
+                    <Image
+                      width={500}
+                      height={500}
+                      alt="Opinion image"
+                      key={`image_${_id}_${idx}`}
+                      src={file}
+                      className="w-full"
+                    />
+                  );
+                }
+
+                return (
+                  <div key={file}>
+                    <a
+                      className="text-blue-400 hover:text-blue-600"
+                      href={file}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Abrir archivo
+                    </a>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
         <div className="flex gap-1 justify-end items-center">
           <span className="font-semibold">¿Te resultó útil?</span>
           <button className="border rounded-md px-2 py-1 flex gap-1 items-center">
