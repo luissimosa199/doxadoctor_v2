@@ -2,14 +2,7 @@ import React from "react";
 import DoctorPageOpinionCard from "./DoctorPageOpinionCard";
 import Ad from "./Ad";
 import { useQuery } from "@tanstack/react-query";
-
-interface Opinion {
-  comment: string;
-  createdAt: string;
-  name: string;
-  rank: number;
-  _id: string;
-}
+import { Opinion } from "@/types";
 
 const DoctorPageOpinionsTab = ({ doctorId }: { doctorId: string }) => {
   const fetchOpinions = async () => {
@@ -24,8 +17,6 @@ const DoctorPageOpinionsTab = ({ doctorId }: { doctorId: string }) => {
   if (isLoading) {
     return <p>Cargando...</p>;
   }
-
-  console.log(data);
 
   return (
     <div className="p-4">

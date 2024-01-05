@@ -142,3 +142,13 @@ export interface DoctorInfo {
   hours?: string;
   phone?: string;
 }
+
+export interface Opinion {
+  comment: string;
+  createdAt: string;
+  name: string;
+  rank: number;
+  _id: string;
+  doctorName?: string;
+  email?: string;
+}
