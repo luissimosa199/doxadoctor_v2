@@ -27,6 +27,9 @@ export class Opinion {
   @prop()
   comment: string;
 
+  @prop({ default: [] })
+  files: string[];
+
   @prop()
   email: string;
 

@@ -1,5 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import DoctorPageRank from "./DoctorPageRank";
+import { handleNewFileChange, uploadImages } from "@/utils/formHelpers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import { CldImage } from "next-cloudinary";
 
 const DoctorPageOpinionsInput = ({
   doctorName,
@@ -14,13 +18,18 @@ const DoctorPageOpinionsInput = ({
     comment: false,
     rank: false,
   });
+  const [files, setFiles] = useState<string[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
+  const [submitBtnDisabled, setSubmitBtnDisabled] = useState<boolean>(false);
 
   const formRef = useRef<HTMLFormElement>(null);
 
   const sendOpinion = async (data: {}) => {
+    const dataWithFiles = { ...data, files };
+
     const response = await fetch("/api/medicos/opinions", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(dataWithFiles),
     });
 
     if (!response.ok) {
@@ -29,6 +38,8 @@ const DoctorPageOpinionsInput = ({
       setSubmitState("OK");
       formRef.current?.reset();
       setSelectedStar(null);
+      setPreviews([]);
+      setFiles([]);
     }
   };
 
@@ -62,6 +73,22 @@ const DoctorPageOpinionsInput = ({
     };
 
     sendOpinion(data);
+  };
+
+  const handleUploadImages = async (event: ChangeEvent<HTMLInputElement>) => {
+    setSubmitBtnDisabled(true);
+    const newPreviews = await handleNewFileChange(event);
+    setPreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
+
+    try {
+      const uploadedUrls = await uploadImages(event);
+      setFiles((prevFiles) => [...prevFiles, ...(uploadedUrls as string[])]);
+    } catch (error) {
+      console.error("Error uploading images:", error);
+    }
+
+    setSubmitBtnDisabled(false);
+    event.target.value = "";
   };
 
   return (
@@ -156,6 +183,53 @@ const DoctorPageOpinionsInput = ({
                 Deseo recibir información sobre mi bienestar y promociones
               </label>
             </div>
+            <div>
+              <label
+                htmlFor="file"
+                className="flex gap-2 items-center w-fit h-8 cursor-pointer rounded-md p-2 bg-gray-200 hover:bg-slate-400 transition-all "
+              >
+                <FontAwesomeIcon
+                  icon={faPaperclip}
+                  size="lg"
+                />
+                Subir imagen o video
+              </label>
+              <input
+                name="file"
+                accept="*"
+                className=""
+                type="file"
+                id="file"
+                multiple
+                onChange={handleUploadImages}
+                hidden
+              />
+
+              <div className="my-2 flex gap-2">
+                {previews.map((preview, index) => {
+                  if (previews.includes("video")) {
+                    return (
+                      <video
+                        key={index}
+                        src={preview}
+                        className="w-20 h-20 object-cover"
+                        controls
+                      />
+                    );
+                  }
+                  return (
+                    <CldImage
+                      key={index}
+                      src={preview}
+                      alt="preview"
+                      width={80}
+                      height={80}
+                      className="w-20 h-20 object-cover"
+                    />
+                  );
+                })}
+              </div>
+            </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="comment text-lg">Comentario</label>
               <div>
@@ -172,7 +246,10 @@ const DoctorPageOpinionsInput = ({
                 className="rounded-md border p-2"
               ></textarea>
             </div>
-            <button className="px-4 py-4 bg-blue-500 font-semibold text-white w-fit rounded-md">
+            <button
+              disabled={submitBtnDisabled}
+              className="px-4 py-4 bg-blue-500 font-semibold text-white w-fit rounded-md"
+            >
               Enviar comentario
             </button>
           </form>

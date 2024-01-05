@@ -5,6 +5,7 @@ import { CustomSession, authOptions } from "../api/auth/[...nextauth]";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Opinion } from "@/types";
 import formatDateString from "@/utils/formatDateString";
+import Link from "next/link";
 
 interface AdminPageInterface {
   name: string;
@@ -97,12 +98,13 @@ const Comments: FunctionComponent<AdminPageInterface> = ({ name, email }) => {
                 <table className="min-w-full table-auto">
                   <thead className="bg-gray-200">
                     <tr>
-                      <th className="px-4 py-2">Nombre</th>
-                      <th className="px-4 py-2">Email</th>
-                      <th className="px-4 py-2">Doctor</th>
-                      <th className="px-4 py-2">Fecha</th>
-                      <th className="px-4 py-2">Comentario</th>
-                      <th className="px-4 py-2">Aprobar</th>
+                      <th className="px-4 py-2 text-left">Nombre</th>
+                      <th className="px-4 py-2 text-left">Email</th>
+                      <th className="px-4 py-2 text-left">Doctor</th>
+                      <th className="px-4 py-2 text-left">Fecha</th>
+                      <th className="px-4 py-2 text-left">Comentario</th>
+                      <th className="px-4 py-2 text-left">Archivos</th>
+                      <th className="px-4 py-2 text-left">Aprobar</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -118,6 +120,28 @@ const Comments: FunctionComponent<AdminPageInterface> = ({ name, email }) => {
                           {formatDateString(e.createdAt)}
                         </td>
                         <td className="px-4 py-2">{e.comment}</td>
+                        <td className="px-4 py-2">
+                          <div>
+                            {e.files.map((file, idx) => {
+                              const type = file.includes("video")
+                                ? "VIDEO"
+                                : "IMAGEN";
+
+                              return (
+                                <div key={`file_${e._id}_${idx}`}>
+                                  <Link
+                                    className="text-blue-400 hover:text-blue-600"
+                                    href={file}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    {type}
+                                  </Link>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </td>
                         <td className="px-4 py-2">
                           <button
                             className="shadow-md rounded-md py-2 px-4 font-semibold text-green-400"

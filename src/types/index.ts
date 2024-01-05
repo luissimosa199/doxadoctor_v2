@@ -144,11 +144,12 @@ export interface DoctorInfo {
 }
 
 export interface Opinion {
-  comment: string;
-  createdAt: string;
-  name: string;
-  rank: number;
   _id: string;
-  doctorName?: string;
+  name: string;
   email?: string;
+  doctorName?: string;
+  createdAt: string;
+  rank: number;
+  comment: string;
+  files: string[];
 }

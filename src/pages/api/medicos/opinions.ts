@@ -25,6 +25,7 @@ export default async function handler(
         email: body.email || "",
         doctorName: body.doctorName,
         doctorId: body.doctorId,
+        files: body.files || [],
       });
 
       await newOpinion.save();
@@ -49,7 +50,7 @@ export default async function handler(
       const opinions = await OpinionModel.find({
         aproved: false,
       })
-        .select("name email doctorName createdAt rank comment")
+        .select("name email doctorName createdAt rank comment files")
         .skip(startIndex)
         .limit(parseInt(limit as string));
 
