@@ -1,6 +1,7 @@
 import { OpinionModel } from "@/db/models/opinionsModel";
 import { NextApiRequest, NextApiResponse } from "next";
 import { nanoid } from "nanoid";
+import { UserModel } from "@/db/models/userModel";
 
 export default async function handler(
   req: NextApiRequest,
@@ -31,8 +32,20 @@ export default async function handler(
       res.status(500).end(`Error: ${JSON.stringify(err)}`);
     }
   } else if (req.method === "GET") {
-    console.log("Received GET request");
-    res.status(200).json({ message: "GET request received" });
+    const { doctorId } = req.query;
+
+    const doctorExists = await UserModel.exists({ _id: doctorId });
+
+    if (!doctorExists) {
+      res.status(404).json({ error: "Doctor not found" });
+      return;
+    }
+
+    const opinions = await OpinionModel.find({
+      doctorId,
+      aproved: true,
+    }).select("name createdAt rank comment");
+    res.status(200).json(opinions);
   } else {
     res.setHeader("Allow", ["GET", "POST"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);

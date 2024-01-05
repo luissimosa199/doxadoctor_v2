@@ -41,7 +41,7 @@ const CurrentTabContent = ({
         </div>
       </div>
       <div className={`${currentTab !== "opiniones" ? "hidden" : "block"}`}>
-        <DoctorPageOpinionsTab />
+        <DoctorPageOpinionsTab doctorId={doctorId} />
         <DoctorPageOpinionsInput
           doctorName={doctorName}
           doctorId={doctorId}

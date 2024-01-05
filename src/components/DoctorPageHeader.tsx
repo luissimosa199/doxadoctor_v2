@@ -5,6 +5,7 @@ import { useUpdateAvatar } from "@/hooks/useUpdateAvatar";
 import { CldImage } from "next-cloudinary";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 
 interface DoctorPageHeaderProps {
   photo: string;
@@ -50,12 +51,16 @@ const DoctorPageHeader: FunctionComponent<DoctorPageHeaderProps> = ({
     <div className="pb-2 md:p-4 flex flex-col items-end bg-white md:flex-row">
       <div className="relative mx-auto md:mx-0 w-full md:w-auto">
         <div className="w-full md:w-96 h-[400px] md:h-96 bg-gray-300 mb-2 overflow-hidden z-0 relative">
-          <CldImage
-            src={currentPhoto || noProfileImage}
-            alt="profile picture"
-            className="object-cover object-center "
-            fill
-          />
+          {currentPhoto ? (
+            <Image
+              src={currentPhoto || noProfileImage}
+              alt="profile picture"
+              className="object-cover object-center "
+              fill
+            />
+          ) : (
+            <div className="object-cover object-center bg-blue-300 w-full h-full"></div>
+          )}
         </div>
         <div
           className={`absolute top-0 w-full h-full bg-gradient-to-t from-black via-transparent z-10 ${

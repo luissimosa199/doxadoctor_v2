@@ -1,35 +1,33 @@
 import React from "react";
 import ThumbsDownSvg from "./icons/ThumbsDownSvg";
 import ThumbsUpSvg from "./icons/ThumbsUpSvg";
-import FilledStarSvg from "./icons/FilledStarSvg";
-import StarSvg from "./icons/StarSvg";
+import OpinionCardRank from "./OpinionCardRank";
+import { formatOpinionDate } from "@/utils/formatOpinionDate";
 
-const DoctorPageOpinionCard = () => {
+const DoctorPageOpinionCard = ({
+  name,
+  createdAt,
+  rank,
+  comment,
+}: {
+  name: string;
+  createdAt: string;
+  rank: number;
+  comment: string;
+}) => {
   return (
-    <div className="shadow-md w-full flex gap-2 p-4 mb-8">
+    <div className="shadow-md w-full flex gap-2 p-4 mb-8 max-w-3xl mx-auto">
       <div className="w-24 h-24 rounded-full bg-gray-200 shrink-0"></div>
-      <div>
+      <div className="w-full">
         <div className="flex justify-between mb-4">
           <div>
-            <p className="font-semibold">Nombre</p>
-            <p className="text-sm">19 de diciembre 2023</p>
+            <p className="font-semibold">{name || "Anónimo"}</p>
+            <p className="text-sm">{formatOpinionDate(createdAt)}</p>
           </div>
-          <div className="flex mb-2 gap-1 justify-center">
-            {[...Array(4)].map((_, idx) => {
-              return <FilledStarSvg key={`star_${idx}`} />;
-            })}
-            <StarSvg />
-          </div>
+          <OpinionCardRank rank={rank} />
         </div>
 
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Reprehenderit modi debitis ut ab, at cupiditate aperiam quae dolores?
-          Soluta magnam non quisquam temporibus qui officia distinctio quasi!
-          Dolorem, sit cumque quibusdam consequatur magnam rerum distinctio
-          facilis dolore eaque pariatur sed omnis deserunt quo rem? Quas placeat
-          fugiat ipsam minima veritatis?
-        </p>
+        <p>{comment}</p>
         <div className="flex gap-1 justify-end items-center">
           <span className="font-semibold">¿Te resultó útil?</span>
           <button className="border rounded-md px-2 py-1 flex gap-1 items-center">
