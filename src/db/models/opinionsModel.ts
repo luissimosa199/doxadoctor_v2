@@ -8,7 +8,7 @@ import { modelOptions, prop, getModelForClass } from "@typegoose/typegoose";
     allowMixed: 0,
   },
 })
-export class VideoCallChat {
+export class Opinion {
   @prop({ default: () => new Date() })
   createdAt: Date;
 
@@ -35,6 +35,9 @@ export class VideoCallChat {
 
   @prop()
   doctorId: string;
+
+  @prop({ default: false })
+  aproved: boolean;
 }
 
-export const VideoCallChatModel = getModelForClass(VideoCallChat);
+export const OpinionModel = getModelForClass(Opinion);

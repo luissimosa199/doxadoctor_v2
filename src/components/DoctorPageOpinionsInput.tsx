@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import DoctorPageRank from "./DoctorPageRank";
 
 const DoctorPageOpinionsInput = ({
@@ -15,6 +15,8 @@ const DoctorPageOpinionsInput = ({
     rank: false,
   });
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   const sendOpinion = async (data: {}) => {
     const response = await fetch("/api/medicos/opinions", {
       method: "POST",
@@ -25,6 +27,8 @@ const DoctorPageOpinionsInput = ({
       setSubmitState("ERROR");
     } else {
       setSubmitState("OK");
+      formRef.current?.reset();
+      setSelectedStar(null);
     }
   };
 
@@ -65,7 +69,7 @@ const DoctorPageOpinionsInput = ({
       <div className="h-full shadow-md p-4">
         <div>
           {submitState === "ERROR" && (
-            <div>
+            <div className="p-2 bg-red-300 font-semibold shadow-md mb-3">
               <h3>
                 Ha ocurrido un error al enviar el comentario, recarga la pagina
                 e intenta de nuevo.
@@ -73,7 +77,7 @@ const DoctorPageOpinionsInput = ({
             </div>
           )}
           {submitState === "OK" && (
-            <div>
+            <div className="p-2 bg-green-300 font-semibold shadow-md mb-3">
               <h3>
                 Tu comentario ha sido enviado para evaluación y será publicado
                 pronto.
@@ -106,6 +110,7 @@ const DoctorPageOpinionsInput = ({
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-2"
+            ref={formRef}
           >
             <div className="flex flex-col gap-1">
               <label
