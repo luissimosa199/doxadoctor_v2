@@ -7,6 +7,7 @@ import DoctorPageInfoBody from "./DoctorPageInfoBody";
 import DoctorPageInfoEdit from "./DoctorPageInfoEdit";
 import { DoctorInfo } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Ad from "./Ad";
 
 const DoctorPageInfoTab = ({
   visiblePhone,
@@ -90,6 +91,10 @@ const DoctorPageInfoTab = ({
             phone={phone}
           />
         )}
+      </div>
+
+      <div className="w-full mt-4 overflow-hidden">
+        <Ad />
       </div>
     </section>
   );

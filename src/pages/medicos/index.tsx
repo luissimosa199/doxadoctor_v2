@@ -129,14 +129,14 @@ const Usuarios = () => {
     <div className={`bg-zinc-50 md:p-8`}>
       <div className="w-full mb-4 max-w-4xl mx-auto">
         <div className="">
-          <UserFilterContainer
+          {/* <UserFilterContainer
             filterByFavorites={filterByFavorites}
             setFilterByFavorites={setFilterByFavorites}
             setSelectedTags={setSelectedTags}
             setFilterOnline={setFilterOnline}
             selectedTags={selectedTags}
             filterOnline={filterOnline}
-          />
+          /> */}
           {/* <AsideMenu /> */}
         </div>
 

@@ -20,19 +20,11 @@ const DoctorPageOpinionsTab = ({ doctorId }: { doctorId: string }) => {
 
   return (
     <div className="p-4">
+      <div className="w-full mt-4 overflow-hidden">
+        <Ad />
+      </div>
       {data.length > 0 ? (
         data.map((e: Opinion) => {
-          // if ((idx + 1) % 3 === 0 && idx !== 0) {
-          //   return (
-          //     <div
-          //       key={`comment_${idx}`}
-          //       className="w-full mb-8 overflow-hidden hidden"
-          //     >
-          //       <Ad />
-          //     </div>
-          //   );
-          // }
-
           return (
             <DoctorPageOpinionCard
               key={`comment_${e._id}`}
@@ -52,6 +44,9 @@ const DoctorPageOpinionsTab = ({ doctorId }: { doctorId: string }) => {
           </p>
         </div>
       )}
+      <div className="w-full mt-4 overflow-hidden">
+        <Ad />
+      </div>
     </div>
   );
 };
