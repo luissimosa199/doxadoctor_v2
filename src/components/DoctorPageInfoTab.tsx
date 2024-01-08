@@ -75,6 +75,10 @@ const DoctorPageInfoTab = ({
           )}
         </div>
 
+        <div className="w-full flex justify-center items-center mt-4 overflow-hidden">
+          <Ad />
+        </div>
+
         {editInfo ? (
           <DoctorPageInfoEdit
             address={address}
@@ -91,10 +95,6 @@ const DoctorPageInfoTab = ({
             phone={phone}
           />
         )}
-      </div>
-
-      <div className="w-full mt-4 overflow-hidden">
-        <Ad />
       </div>
     </section>
   );

@@ -44,9 +44,6 @@ const DoctorPageOpinionsTab = ({ doctorId }: { doctorId: string }) => {
           </p>
         </div>
       )}
-      <div className="w-full mt-4 overflow-hidden">
-        <Ad />
-      </div>
     </div>
   );
 };
