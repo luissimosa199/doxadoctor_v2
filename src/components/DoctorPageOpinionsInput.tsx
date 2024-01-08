@@ -4,6 +4,7 @@ import { handleNewFileChange, uploadImages } from "@/utils/formHelpers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import { CldImage } from "next-cloudinary";
+import OpinionAudioRecorder from "./OpinionAudioRecorder";
 
 const DoctorPageOpinionsInput = ({
   doctorName,
@@ -21,11 +22,13 @@ const DoctorPageOpinionsInput = ({
   const [files, setFiles] = useState<string[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [submitBtnDisabled, setSubmitBtnDisabled] = useState<boolean>(false);
+  const [showAudioRecorder, toggleAudioRecorder] = useState<boolean>(false);
+  const [uploadedAudio, setUploadedAudio] = useState<string | null>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
 
   const sendOpinion = async (data: {}) => {
-    const dataWithFiles = { ...data, files };
+    const dataWithFiles = { ...data, files, audio: uploadedAudio };
 
     const response = await fetch("/api/medicos/opinions", {
       method: "POST",
@@ -40,6 +43,7 @@ const DoctorPageOpinionsInput = ({
       setSelectedStar(null);
       setPreviews([]);
       setFiles([]);
+      setUploadedAudio(null);
     }
   };
 
@@ -184,16 +188,30 @@ const DoctorPageOpinionsInput = ({
               </label>
             </div>
             <div>
-              <label
-                htmlFor="file"
-                className="flex gap-2 items-center w-fit h-8 cursor-pointer rounded-md p-2 bg-gray-200 hover:bg-slate-400 transition-all "
-              >
-                <FontAwesomeIcon
-                  icon={faPaperclip}
-                  size="lg"
-                />
-                Subir imagen o video
-              </label>
+              <div className="flex gap-2">
+                <label
+                  htmlFor="file"
+                  className="flex gap-2 items-center w-fit h-8 cursor-pointer rounded-md p-2 bg-gray-200 hover:bg-slate-400 transition-all "
+                >
+                  <FontAwesomeIcon
+                    icon={faPaperclip}
+                    size="lg"
+                  />
+                  Subir imagen o video
+                </label>
+
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggleAudioRecorder((prev) => !prev);
+                  }}
+                  className="flex gap-2 items-center w-fit h-8 cursor-pointer rounded-md p-2 bg-gray-200 hover:bg-slate-400 transition-all"
+                >
+                  Grabar audio
+                </button>
+              </div>
+
               <input
                 name="file"
                 accept="*"
@@ -206,6 +224,10 @@ const DoctorPageOpinionsInput = ({
               />
 
               <div className="my-2 flex gap-2">
+                {showAudioRecorder && (
+                  <OpinionAudioRecorder setUploadedAudio={setUploadedAudio} />
+                )}
+
                 {previews.map((preview, index) => {
                   if (previews.includes("video")) {
                     return (

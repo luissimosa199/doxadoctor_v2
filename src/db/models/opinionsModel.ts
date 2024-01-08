@@ -39,6 +39,9 @@ export class Opinion {
   @prop()
   doctorId: string;
 
+  @prop()
+  audio: string;
+
   @prop({ default: false })
   aproved: boolean;
 }

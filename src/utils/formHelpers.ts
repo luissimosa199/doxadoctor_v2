@@ -339,3 +339,32 @@ export function generateSlug(
 
   return slug;
 }
+
+export const uploadAudio = async (audioBlob: Blob) => {
+  // URL for Cloudinary (or your preferred service) upload
+  const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`;
+
+  // Create FormData and append the audio file
+  const formData = new FormData();
+  formData.append("file", audioBlob, "recording.wav"); // 'recording.wav' is the filename
+  formData.append("upload_preset", "qxkzlm62"); // Your Cloudinary upload preset
+
+  // Upload the audio file
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse.secure_url; // URL of the uploaded audio
+    } else {
+      throw new Error("Audio upload failed");
+    }
+  } catch (error) {
+    console.error('Error during audio upload:', error);
+    throw error;
+  }
+};
+

@@ -26,6 +26,7 @@ export default async function handler(
         doctorName: body.doctorName,
         doctorId: body.doctorId,
         files: body.files || [],
+        audio: body.audio,
       });
 
       await newOpinion.save();
