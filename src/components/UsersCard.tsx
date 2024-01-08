@@ -29,35 +29,37 @@ const UsersCard: FunctionComponent<UserInterface> = ({
 }) => {
   return (
     <li className="shadow-md bg-white md:w-[280px]">
-      <div className="flex flex-col items-center gap-y-2 w-full">
-        <Link
-          href={`/medicos/${user.slug}`}
-          className=""
-        >
-          <div className="h-96 md:h-[280px] w-screen sm:max-w-sm md:w-[280px] overflow-hidden relative">
-            <Image
-              alt={`foto de ${user.name}`}
-              src={
-                user.image
-                  ? user.image.startsWith("http")
-                    ? user.image
-                    : `https://${user.image}`
-                  : noProfileImage
-              }
-              fill
-              className="absolute object-cover"
-            />
-            <div className="w-full h-full bg-gray-200"></div>
-            <div className="flex items-center gap-2 absolute bottom-2 right-2">
-              <p className="text-xs text-center leading-none bg-blue-300 px-2 py-1 rounded-md font-semibold">
-                {user.type}
-              </p>
+      <div className="flex flex-col justify-between items-center gap-y-2 w-full h-full">
+        {user.image && (
+          <Link
+            href={`/medicos/${user.slug}`}
+            className=""
+          >
+            <div className="h-96 md:h-[280px] w-screen sm:max-w-sm md:w-[280px] overflow-hidden relative">
+              <Image
+                alt={`foto de ${user.name}`}
+                src={
+                  user.image
+                    ? user.image.startsWith("http")
+                      ? user.image
+                      : `https://${user.image}`
+                    : noProfileImage
+                }
+                fill
+                className="absolute object-cover"
+              />
+              <div className="w-full h-full bg-gray-200"></div>
+              <div className="flex items-center gap-2 absolute bottom-2 right-2">
+                <p className="text-xs text-center leading-none bg-blue-300 px-2 py-1 rounded-md font-semibold">
+                  {user.type}
+                </p>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        )}
         <Link href={`/medicos/${user.slug}`}>
-          <div className="flex flex-col items-center">
-            <p className="text-lg font-medium">{user.name}</p>
+          <div className="flex flex-col justify-between items-center px-1">
+            <p className="text-xl text-center font-medium">{user.name}</p>
             <UsersOnlineIndicator user={user.email} />
             <div className="flex mb-2 gap-1 justify-center">
               {[...Array(4)].map((_, idx) => {
