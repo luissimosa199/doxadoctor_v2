@@ -1,5 +1,6 @@
 import { uploadAudio } from "@/utils/formHelpers";
 import React, { useEffect, useState } from "react";
+import AudioPreview from "./AudioPreview";
 
 const OpinionAudioRecorder = ({
   setUploadedAudio,
@@ -11,7 +12,6 @@ const OpinionAudioRecorder = ({
   );
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [isRecording, setIsRecording] = useState(false);
-  const [previewAudio, setPreviewAudio] = useState<string | null>(null);
 
   useEffect(() => {
     // Request permissions and create MediaRecorder
@@ -28,7 +28,6 @@ const OpinionAudioRecorder = ({
         setAudioBlob(audioBlob);
 
         try {
-          setPreviewAudio(URL.createObjectURL(audioBlob));
           const uploadedUrl = await uploadAudio(audioBlob);
           setUploadedAudio(uploadedUrl);
         } catch (error) {
@@ -40,6 +39,7 @@ const OpinionAudioRecorder = ({
   }, []);
 
   const startRecording = () => {
+    setAudioBlob(null);
     if (mediaRecorder) {
       mediaRecorder.start();
       setIsRecording(true);
@@ -54,7 +54,7 @@ const OpinionAudioRecorder = ({
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex mt-4 w-full flex-col gap-2">
       <button
         className={`${
           !isRecording ? "bg-gray-300" : "bg-gray-100 animate-pulse"
@@ -73,12 +73,8 @@ const OpinionAudioRecorder = ({
       >
         Detener
       </button>
-      {previewAudio && (
-        <audio
-          src={previewAudio}
-          controls
-        />
-      )}
+
+      {audioBlob && <AudioPreview audioBlob={audioBlob} />}
     </div>
   );
 };

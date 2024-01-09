@@ -44,6 +44,7 @@ const DoctorPageOpinionsInput = ({
       setPreviews([]);
       setFiles([]);
       setUploadedAudio(null);
+      toggleAudioRecorder(false);
     }
   };
 
@@ -223,7 +224,7 @@ const DoctorPageOpinionsInput = ({
                 hidden
               />
 
-              <div className="my-2 flex gap-2">
+              <div className="my-2 flex gap-2 w-full">
                 {showAudioRecorder && (
                   <OpinionAudioRecorder setUploadedAudio={setUploadedAudio} />
                 )}
