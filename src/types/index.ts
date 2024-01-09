@@ -152,4 +152,5 @@ export interface Opinion {
   rank: number;
   comment: string;
   files: string[];
+  audio?: string;
 }

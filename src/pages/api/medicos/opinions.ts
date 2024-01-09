@@ -51,7 +51,7 @@ export default async function handler(
       const opinions = await OpinionModel.find({
         aproved: false,
       })
-        .select("name email doctorName createdAt rank comment files")
+        .select("name email doctorName createdAt rank comment files audio")
         .skip(startIndex)
         .limit(parseInt(limit as string));
 

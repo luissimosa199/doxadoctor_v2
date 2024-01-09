@@ -140,6 +140,18 @@ const Comments: FunctionComponent<AdminPageInterface> = ({ name, email }) => {
                                 </div>
                               );
                             })}
+                            {e.audio && (
+                              <div key={`audio_${e._id}`}>
+                                <Link
+                                  className="text-blue-400 hover:text-blue-600"
+                                  href={e.audio}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  AUDIO
+                                </Link>
+                              </div>
+                            )}
                           </div>
                         </td>
                         <td className="px-4 py-2">
