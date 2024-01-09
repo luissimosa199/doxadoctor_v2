@@ -77,7 +77,7 @@ export default async function handler(
     const opinions = await OpinionModel.find({
       doctorId,
       aproved: true,
-    }).select("name createdAt rank comment files");
+    }).select("name createdAt rank comment files audio");
     return res.status(200).json(opinions);
   } else if (req.method === "PUT") {
     const { id } = req.query;

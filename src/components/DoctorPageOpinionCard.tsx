@@ -12,6 +12,7 @@ const DoctorPageOpinionCard = ({
   comment,
   files,
   _id,
+  audio,
 }: {
   name: string;
   createdAt: string;
@@ -19,6 +20,7 @@ const DoctorPageOpinionCard = ({
   comment: string;
   files: string[];
   _id: string;
+  audio?: string;
 }) => {
   return (
     <div className="shadow-md w-full flex gap-2 p-4 mb-8 max-w-3xl mx-auto">
@@ -33,6 +35,15 @@ const DoctorPageOpinionCard = ({
         </div>
         <div className="my-2">
           <p className="mb-2">{comment}</p>
+          {audio && (
+            <div>
+              <audio
+                src={audio}
+                controls
+                className="w-full"
+              />
+            </div>
+          )}
           <div>
             {files &&
               files.map((file, idx) => {

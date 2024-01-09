@@ -34,6 +34,7 @@ const DoctorPageOpinionsTab = ({ doctorId }: { doctorId: string }) => {
               rank={e.rank}
               comment={e.comment}
               files={e.files}
+              audio={e.audio}
             />
           );
         })
