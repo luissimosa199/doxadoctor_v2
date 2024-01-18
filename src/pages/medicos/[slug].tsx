@@ -8,35 +8,62 @@ import DoctorPageBody from "@/components/DoctorPageBody";
 import DoctorPageHeader from "@/components/DoctorPageHeader";
 
 interface UserPageProps {
-  userData: User | null;
+  userData: (User & { rank: number }) | null;
 }
 
 const UserPage: FunctionComponent<UserPageProps> = ({ userData }) => {
   // const { isFavorite, mutation, isLoading } = useFavorite(
   //   userData?.email as string
   // );
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Doctor",
+    image: [userData?.image],
+    name: userData?.name,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: userData?.address,
+      addressCountry: "AR",
+    },
+    review: {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: userData?.rank ?? null,
+        bestRating: 5,
+      },
+    },
+    url: `https://pediatra.doxadoctor.com/medicos/${userData?.slug}`,
+    telephone: userData?.phone,
+  };
 
   if (!userData) {
     return <p>Error</p>;
   }
 
   return (
-    <main className="bg-zinc-50">
-      <DoctorPageHeader
-        photo={userData?.image}
-        name={userData?.name}
-        type={userData?.type || ""}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <DoctorPageBody
-        doctorId={userData?._id as string}
-        doctorName={userData?.name}
-        username={userData?.email}
-        slug={userData?.slug || ""}
-        phone={userData?.phone || ""}
-        hours={userData?.hours || ""}
-        address={userData?.address || ""}
-      />
-    </main>
+      <main className="bg-zinc-50">
+        <DoctorPageHeader
+          photo={userData?.image}
+          name={userData?.name}
+          type={userData?.type || ""}
+        />
+        <DoctorPageBody
+          doctorId={userData?._id as string}
+          doctorName={userData?.name}
+          username={userData?.email}
+          slug={userData?.slug || ""}
+          phone={userData?.phone || ""}
+          hours={userData?.hours || ""}
+          address={userData?.address || ""}
+        />
+      </main>
+    </>
   );
 };
 
