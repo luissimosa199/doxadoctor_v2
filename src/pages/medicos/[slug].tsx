@@ -18,7 +18,7 @@ const UserPage: FunctionComponent<UserPageProps> = ({ userData }) => {
   // );
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Doctor",
+    "@type": "HealthAndBeautyBusiness",
     image: [userData?.image],
     name: userData?.name,
     address: {
