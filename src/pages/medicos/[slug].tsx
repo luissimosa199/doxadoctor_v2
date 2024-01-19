@@ -6,9 +6,10 @@ import { FunctionComponent } from "react";
 // import { useFavorite } from "@/hooks/useFavorite";
 import DoctorPageBody from "@/components/DoctorPageBody";
 import DoctorPageHeader from "@/components/DoctorPageHeader";
+import { OpinionModel } from "@/db/models/opinionsModel";
 
 interface UserPageProps {
-  userData: (User & { rank: number }) | null;
+  userData: (User & { rank: number; votes: number }) | null;
 }
 
 const UserPage: FunctionComponent<UserPageProps> = ({ userData }) => {
@@ -36,6 +37,8 @@ const UserPage: FunctionComponent<UserPageProps> = ({ userData }) => {
     url: `https://pediatra.doxadoctor.com/medicos/${userData?.slug}`,
     telephone: userData?.phone,
   };
+
+  console.log(userData);
 
   if (!userData) {
     return <p>Error</p>;
@@ -82,6 +85,17 @@ export const getServerSideProps = async (
       .lean();
 
     if (user) {
+      const opinion = await OpinionModel.aggregate([
+        { $match: { doctorId: user._id } },
+        {
+          $group: {
+            _id: "$doctorId",
+            rank: { $avg: "$rank" },
+            votes: { $sum: 1 },
+          },
+        },
+      ]);
+
       const userData = {
         _id: user._id.toString(),
         name: user.name,
@@ -95,6 +109,8 @@ export const getServerSideProps = async (
         bio: user.bio || "",
         slug: user.slug || "",
         tags: user.tags || [],
+        rank: opinion[0] ? opinion[0].rank : null,
+        votes: opinion[0] ? opinion[0].votes : null,
       };
 
       return {

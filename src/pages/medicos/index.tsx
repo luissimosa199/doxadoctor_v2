@@ -90,36 +90,36 @@ const Usuarios = () => {
     refetch();
   }, [selectedTags, nameFilter, filterByFavorites, refetch]);
 
-  const displayedUsers = useMemo(() => {
-    // Flatten the array of pages into a single array of users
-    const allUsers = data?.pages.flatMap((page) => page);
+  // const displayedUsers = useMemo(() => {
+  //   // Flatten the array of pages into a single array of users
+  //   const allUsers = data?.pages.flatMap((page) => page);
 
-    // Apply the filtering
-    let filteredUsers = allUsers;
-    if (filterByFavorites && favorites) {
-      filteredUsers = filteredUsers?.filter((user: UserInterface) =>
-        favorites.includes(user.email)
-      );
-    }
-    if (filterOnline) {
-      filteredUsers = filteredUsers?.filter(
-        (user: UserInterface) => user.online
-      );
-    }
+  //   // Apply the filtering
+  //   let filteredUsers = allUsers;
+  //   if (filterByFavorites && favorites) {
+  //     filteredUsers = filteredUsers?.filter((user: UserInterface) =>
+  //       favorites.includes(user.email)
+  //     );
+  //   }
+  //   if (filterOnline) {
+  //     filteredUsers = filteredUsers?.filter(
+  //       (user: UserInterface) => user.online
+  //     );
+  //   }
 
-    // Sort users so that online users come first
-    filteredUsers?.sort((a: UserInterface, b: UserInterface) => {
-      if (a.online && !b.online) {
-        return -1; // a comes before b
-      }
-      if (!a.online && b.online) {
-        return 1; // b comes before a
-      }
-      return 0; // no change in order
-    });
+  //   // Sort users so that online users come first
+  //   filteredUsers?.sort((a: UserInterface, b: UserInterface) => {
+  //     if (a.online && !b.online) {
+  //       return -1; // a comes before b
+  //     }
+  //     if (!a.online && b.online) {
+  //       return 1; // b comes before a
+  //     }
+  //     return 0; // no change in order
+  //   });
 
-    return filteredUsers;
-  }, [data?.pages, favorites, filterByFavorites, filterOnline]);
+  //   return filteredUsers;
+  // }, [data?.pages, favorites, filterByFavorites, filterOnline]);
 
   if (isLoading) return <UserListSkeleton />;
 

@@ -7,6 +7,7 @@ import FilledStarSvg from "./icons/FilledStarSvg";
 import StarSvg from "./icons/StarSvg";
 import LocationSvg from "./icons/LocationSvg";
 import Image from "next/image";
+import StarRank from "./StarRank";
 
 interface UserInterface {
   user: {
@@ -17,6 +18,8 @@ interface UserInterface {
     slug: string;
     type: string;
     address?: string;
+    rank?: number;
+    votes?: number;
   };
   favoritesLoading: boolean;
   isFavorites: boolean;
@@ -62,11 +65,14 @@ const UsersCard: FunctionComponent<UserInterface> = ({
             <p className="text-xl text-center font-medium">{user.name}</p>
             <UsersOnlineIndicator user={user.email} />
             <div className="flex mb-2 gap-1 justify-center">
-              {[...Array(4)].map((_, idx) => {
-                return <FilledStarSvg key={`star_${idx}`} />;
-              })}
-              <StarSvg />
-              <span className="text-xs">(10)</span>
+              {user.rank ? (
+                <>
+                  <StarRank rank={user.rank || 0} />
+                  <span className="text-xs">{user.votes}</span>
+                </>
+              ) : (
+                <p className="text-gray-300 text-sm">Sin Comentarios</p>
+              )}
             </div>
             <div className="flex items-center gap-1">
               <LocationSvg />

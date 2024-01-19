@@ -3,6 +3,7 @@ import dbConnect from "../../../db/dbConnect";
 import { UserModel } from "@/db/models/userModel";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
+import { OpinionModel } from "@/db/models/opinionsModel";
 
 export default async function handler(
   req: NextApiRequest,
@@ -39,16 +40,44 @@ export default async function handler(
       }
 
       const users = await UserModel.find(query)
-      .select("email image name tags slug online type address phone hours")
-      .sort({ name: 1, _id: 1 }) // Sort by name first, then by _id
-      .limit(pageSize)
-      .skip((currentPage - 1) * pageSize);
+        .select("email image name tags slug online type address phone hours")
+        .sort({ name: 1, _id: 1 }) // Sort by name first, then by _id
+        .limit(pageSize)
+        .skip((currentPage - 1) * pageSize);
 
-      if (!users || users.length === 0) {
+      const opinionsPromises = users.map((user) =>
+        OpinionModel.aggregate([
+          { $match: { doctorId: user._id } },
+          {
+            $group: {
+              _id: "$doctorId",
+              rank: { $avg: "$rank" },
+              votes: { $sum: 1 },
+            },
+          },
+        ])
+      );
+
+      const opinions = await Promise.all(opinionsPromises);
+
+      const usersWithOpinions = users.map((user, index) => {
+        const opinion = opinions[index][0]; // Get the first (and only) opinion for the user
+        if (opinion) {
+          return {
+            ...user._doc,
+            rank: opinion.rank,
+            votes: opinion.votes,
+          };
+        } else {
+          return user;
+        }
+      });
+
+      if (!usersWithOpinions || usersWithOpinions.length === 0) {
         return res.status(200).json([]);
       }
 
-      return res.status(200).json(users);
+      return res.status(200).json(usersWithOpinions);
     } else {
       return res.status(405).json({ error: "Method not allowed" });
     }
