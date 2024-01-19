@@ -38,8 +38,6 @@ const UserPage: FunctionComponent<UserPageProps> = ({ userData }) => {
     telephone: userData?.phone,
   };
 
-  console.log(userData);
-
   if (!userData) {
     return <p>Error</p>;
   }

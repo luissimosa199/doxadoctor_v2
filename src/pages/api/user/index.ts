@@ -64,7 +64,7 @@ export default async function handler(
         const opinion = opinions[index][0]; // Get the first (and only) opinion for the user
         if (opinion) {
           return {
-            ...user._doc,
+            ...user.toObject(),
             rank: opinion.rank,
             votes: opinion.votes,
           };
